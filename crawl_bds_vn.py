@@ -10,8 +10,8 @@ def main():
     f = open("status.csv", mode='w', encoding='utf-8')
     f.close()
 
-    start_page = 2
-    end_page = 20  # Số trang sẽ crawl
+    start_page = 41
+    end_page = 60  # Số trang sẽ crawl
     location = "nha-dat-ban-ha-noi"
     base_url = f"https://batdongsan.com.vn/{location}/p"
 
