@@ -9,12 +9,16 @@ from sklearn.neighbors import KNeighborsRegressor
 from sklearn.metrics import mean_squared_error, r2_score
 
 df = read_csv('cleaned_data.csv')
-X = df[['Diện tích', 'Mặt tiền', 'Số phòng ngủ', 'Số toilet', 'Số tầng']]
-y = df['gia']
+X = df[['Diện tích',
+ 'Mặt tiền',
+ 'Số tầng',
+ 'Số phòng ngủ',
+ 'Số toilet']]
+y = df['Mức giá']
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-def train_and_save_LinearRegression(X_train, y_train):
+def train_and_save_LinearRegression(X_train, X_test, y_train, y_test):
     model = LinearRegression()
     model.fit(X_train, y_train)
     
@@ -25,10 +29,10 @@ def train_and_save_LinearRegression(X_train, y_train):
     print(f"R^2 Score: {r2_score}")
     print('#' * 50)
     
-    joblib.dump(model, 'linear_regression_model.pkl')
+    joblib.dump(model, 'weights/linear_regression_model.pkl')
     print("SAVE linear_regression_model")
 
-def train_and_save_RandomForestRegressor(X_train, y_train):
+def train_and_save_RandomForestRegressor(X_train, X_test, y_train, y_test):
     model = RandomForestRegressor(n_estimators=100, random_state=42)
     model.fit(X_train, y_train)
 
@@ -39,10 +43,10 @@ def train_and_save_RandomForestRegressor(X_train, y_train):
     print(f"R^2 Score: {r2_score}")
     print('#' * 50)
     
-    joblib.dump(model, 'random_forest_model.pkl')
+    joblib.dump(model, 'weights/random_forest_model.pkl')
     print("SAVE random_forest_model")
     
-def train_and_save_GradientBoostingRegressor(X_train, y_train):
+def train_and_save_GradientBoostingRegressor(X_train, X_test, y_train, y_test):
     model = GradientBoostingRegressor(n_estimators=100, learning_rate=0.1, random_state=42)
     model.fit(X_train, y_train)
 
@@ -53,11 +57,11 @@ def train_and_save_GradientBoostingRegressor(X_train, y_train):
     print(f"R^2 Score: {r2_score}")
     print('#' * 50)
     
-    joblib.dump(model, 'gradient_boosting_model.pkl')
+    joblib.dump(model, 'weights/gradient_boosting_model.pkl')
     print("SAVE gradient_boosting_model")
     
     
-def train_and_save_KNeighborsRegressor(X_train, y_train):
+def train_and_save_KNeighborsRegressor(X_train, X_test, y_train, y_test):
     model = KNeighborsRegressor(n_neighbors=5)
     model.fit(X_train, y_train)
 
@@ -68,15 +72,15 @@ def train_and_save_KNeighborsRegressor(X_train, y_train):
     print(f"R^2 Score: {r2_score}")
     print('#' * 50)
 
-    joblib.dump(model, 'knn_model.pkl')
+    joblib.dump(model, 'weights/knn_model.pkl')
     print("SAVE gradient_bknn_modeloosting_model")
     
 
 def main():
-    train_and_save_LinearRegression()
-    train_and_save_RandomForestRegressor()
-    train_and_save_GradientBoostingRegressor()
-    train_and_save_KNeighborsRegressor()
+    train_and_save_LinearRegression(X_train, X_test, y_train, y_test)
+    train_and_save_RandomForestRegressor(X_train, X_test, y_train, y_test)
+    train_and_save_GradientBoostingRegressor(X_train, X_test, y_train, y_test)
+    train_and_save_KNeighborsRegressor(X_train, X_test, y_train, y_test)
 
 if __name__ == "__main__":
     main()

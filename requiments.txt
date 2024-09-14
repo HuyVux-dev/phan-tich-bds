@@ -1,2 +1,7 @@
 beautifulsoup4
 undetected_chromedriver
+pandas
+joblib
+matplotlib
+scikit-learn
+streamlit
